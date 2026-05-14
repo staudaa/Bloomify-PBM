@@ -10,13 +10,63 @@ class BloomifyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+
       title: 'Bloomify',
+
       theme: ThemeData(
-        primarySwatch: Colors.pink,
-        scaffoldBackgroundColor: const Color(0xfffdf4ff),
+
+        scaffoldBackgroundColor:
+            Colors.white,
+
+        fontFamily: 'Roboto',
+
+        appBarTheme: const AppBarTheme(
+          backgroundColor:
+              Color(0xffBFA2DB),
+
+          elevation: 0,
+
+          centerTitle: true,
+
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+
+          iconTheme: IconThemeData(
+            color: Colors.white,
+          ),
+        ),
+
+        elevatedButtonTheme:
+            ElevatedButtonThemeData(
+
+          style:
+              ElevatedButton.styleFrom(
+
+            backgroundColor:
+                const Color(0xffBFA2DB),
+
+            foregroundColor:
+                Colors.white,
+
+            elevation: 5,
+
+            shape:
+                RoundedRectangleBorder(
+              borderRadius:
+                  BorderRadius.circular(
+                20,
+              ),
+            ),
+          ),
+        ),
       ),
+
       home: const LoginScreen(),
     );
   }

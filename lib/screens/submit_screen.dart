@@ -39,7 +39,75 @@ class _SubmitScreenState
 
   Future<void> submitTask() async {
 
-    if (priceController.text.isEmpty) {
+    if (nameController.text.isEmpty ||
+        priceController.text.isEmpty ||
+        descriptionController.text.isEmpty ||
+        githubController.text.isEmpty) {
+
+      ScaffoldMessenger.of(context)
+          .showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Semua field wajib diisi',
+          ),
+        ),
+      );
+
+      return;
+    }
+
+    bool? confirm =
+        await showDialog(
+
+      context: context,
+
+      builder: (context) {
+
+        return AlertDialog(
+
+          title: const Text(
+            'Konfirmasi Submit',
+          ),
+
+          content: const Text(
+            'Pastikan data dan GitHub URL sudah benar karena submit tidak dapat diedit kembali.',
+          ),
+
+          actions: [
+
+            TextButton(
+              onPressed: () {
+
+                Navigator.pop(
+                  context,
+                  false,
+                );
+              },
+
+              child: const Text(
+                'Batal',
+              ),
+            ),
+
+            ElevatedButton(
+              onPressed: () {
+
+                Navigator.pop(
+                  context,
+                  true,
+                );
+              },
+
+              child: const Text(
+                'Submit',
+              ),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (confirm != true) {
       return;
     }
 
@@ -73,9 +141,13 @@ class _SubmitScreenState
             .showSnackBar(
           const SnackBar(
             content:
-                Text('Submit berhasil'),
+                Text(
+              'Tugas berhasil disubmit 🌸',
+            ),
           ),
         );
+
+        Navigator.pop(context);
       }
     }
   }
@@ -86,10 +158,9 @@ class _SubmitScreenState
     return Scaffold(
 
       appBar: AppBar(
-        backgroundColor: Colors.pink,
-
         title: const Text(
           'Submit Tugas',
+
           style: TextStyle(
             color: Colors.white,
           ),
@@ -107,9 +178,17 @@ class _SubmitScreenState
               controller: nameController,
 
               decoration:
-                  const InputDecoration(
+                  InputDecoration(
                 labelText:
                     'Nama Produk',
+
+                border:
+                    OutlineInputBorder(
+                  borderRadius:
+                      BorderRadius.circular(
+                    20,
+                  ),
+                ),
               ),
             ),
 
@@ -123,8 +202,17 @@ class _SubmitScreenState
                   TextInputType.number,
 
               decoration:
-                  const InputDecoration(
-                labelText: 'Harga',
+                  InputDecoration(
+                labelText:
+                    'Harga',
+
+                border:
+                    OutlineInputBorder(
+                  borderRadius:
+                      BorderRadius.circular(
+                    20,
+                  ),
+                ),
               ),
             ),
 
@@ -134,10 +222,20 @@ class _SubmitScreenState
               controller:
                   descriptionController,
 
+              maxLines: 4,
+
               decoration:
-                  const InputDecoration(
+                  InputDecoration(
                 labelText:
                     'Deskripsi',
+
+                border:
+                    OutlineInputBorder(
+                  borderRadius:
+                      BorderRadius.circular(
+                    20,
+                  ),
+                ),
               ),
             ),
 
@@ -148,9 +246,17 @@ class _SubmitScreenState
                   githubController,
 
               decoration:
-                  const InputDecoration(
+                  InputDecoration(
                 labelText:
                     'GitHub URL',
+
+                border:
+                    OutlineInputBorder(
+                  borderRadius:
+                      BorderRadius.circular(
+                    20,
+                  ),
+                ),
               ),
             ),
 
@@ -158,7 +264,7 @@ class _SubmitScreenState
 
             SizedBox(
               width: double.infinity,
-              height: 50,
+              height: 55,
 
               child: ElevatedButton(
                 onPressed:
@@ -166,8 +272,16 @@ class _SubmitScreenState
 
                 style:
                     ElevatedButton.styleFrom(
-                  backgroundColor:
-                      Colors.blue,
+                  // backgroundColor:
+                  //     Colors.blue,
+
+                  shape:
+                      RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(
+                      20,
+                    ),
+                  ),
                 ),
 
                 child: isLoading
@@ -176,7 +290,8 @@ class _SubmitScreenState
                             Colors.white,
                       )
                     : const Text(
-                        'SUBMIT',
+                        'SUBMIT TUGAS',
+
                         style: TextStyle(
                           color:
                               Colors.white,

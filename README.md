@@ -1,17 +1,46 @@
-# bloomify
+# Bloomify
 
-A new Flutter project.
+Bloomify adalah aplikasi Flutter katalog bunga yang terintegrasi dengan REST API.
 
-## Getting Started
+# Features
 
-This project is a starting point for a Flutter application.
+- Login Authentication
+- API Integration
+- Product Catalog
+- Add Draft Product
+- Submit Product Task
+- Soft Delete Product
+- Beautiful Soft Pink & Lavender UI
 
-A few resources to get you started if this is your first Flutter project:
+# Technologies
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+- Flutter
+- REST API
+- HTTP Package
+- Flutter Secure Storage
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+# 📱 Screenshot Aplikasi
+
+# Login Screen
+
+![Login](screenshots/login.png)
+
+---
+
+# Home Screen
+
+![Home](screenshots/home.png)
+
+---
+
+# Add Product Screen
+
+![Add Product](screenshots/add_product.png)
+
+---
+
+# Submit Screen
+
+![Submit](screenshots/submit.png)

@@ -72,8 +72,6 @@ class _HomeScreenState
     return Scaffold(
 
       appBar: AppBar(
-        backgroundColor: Colors.pink,
-
         title: const Text(
           'Bloomify',
           style: TextStyle(
@@ -119,9 +117,42 @@ class _HomeScreenState
                   CircularProgressIndicator(),
             )
           : products.isEmpty
-              ? const Center(
-                  child: Text(
-                    'Belum ada produk bunga',
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment:
+                        MainAxisAlignment.center,
+
+                    children: [
+
+                      Icon(
+                        Icons.local_florist,
+                        size: 80,
+                        color:
+                            Colors.pink.shade200,
+                      ),
+
+                      const SizedBox(
+                        height: 20,
+                      ),
+
+                      const Text(
+                        'Belum ada katalog bunga 🌸',
+
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight:
+                              FontWeight.bold,
+                        ),
+                      ),
+
+                      const SizedBox(
+                        height: 10,
+                      ),
+
+                      const Text(
+                        'Tambahkan produk bunga pertamamu',
+                      ),
+                    ],
                   ),
                 )
               : ListView.builder(
@@ -132,16 +163,87 @@ class _HomeScreenState
                       (context, index) {
 
                     return ProductCard(
+
                       product:
                           products[index],
+
+                      onDelete: () {
+
+                        showDialog(
+                          context: context,
+
+                          builder:
+                              (context) {
+
+                            return AlertDialog(
+
+                              title:
+                                  const Text(
+                                'Hapus Draft?',
+                              ),
+
+                              content:
+                                  const Text(
+                                'Produk hanya akan dihapus dari tampilan aplikasi mahasiswa.',
+                              ),
+
+                              actions: [
+
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(
+                                      context,
+                                    );
+                                  },
+
+                                  child:
+                                      const Text(
+                                    'Batal',
+                                  ),
+                                ),
+
+                                ElevatedButton(
+                                  onPressed:
+                                      () {
+
+                                    setState(() {
+                                      products.removeAt(
+                                        index,
+                                      );
+                                    });
+
+                                    Navigator.pop(
+                                      context,
+                                    );
+
+                                    ScaffoldMessenger.of(
+                                            context)
+                                        .showSnackBar(
+                                      const SnackBar(
+                                        content:
+                                            Text(
+                                          'Draft berhasil disembunyikan 🌸',
+                                        ),
+                                      ),
+                                    );
+                                  },
+
+                                  child:
+                                      const Text(
+                                    'Hapus',
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
                     );
                   },
                 ),
 
       floatingActionButton:
           FloatingActionButton(
-        backgroundColor: Colors.blue,
-
         child: const Icon(
           Icons.add,
         ),

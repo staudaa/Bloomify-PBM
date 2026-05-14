@@ -35,7 +35,74 @@ class _AddProductScreenState
 
   Future<void> addProduct() async {
 
-    if (priceController.text.isEmpty) {
+    if (nameController.text.isEmpty ||
+        priceController.text.isEmpty ||
+        descriptionController.text.isEmpty) {
+
+      ScaffoldMessenger.of(context)
+          .showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Semua field wajib diisi',
+          ),
+        ),
+      );
+
+      return;
+    }
+
+    bool? confirm =
+        await showDialog(
+
+      context: context,
+
+      builder: (context) {
+
+        return AlertDialog(
+
+          title: const Text(
+            'Konfirmasi Produk',
+          ),
+
+          content: const Text(
+            'Pastikan data produk sudah benar karena tidak dapat diedit kembali.',
+          ),
+
+          actions: [
+
+            TextButton(
+              onPressed: () {
+
+                Navigator.pop(
+                  context,
+                  false,
+                );
+              },
+
+              child: const Text(
+                'Batal',
+              ),
+            ),
+
+            ElevatedButton(
+              onPressed: () {
+
+                Navigator.pop(
+                  context,
+                  true,
+                );
+              },
+
+              child: const Text(
+                'Lanjut',
+              ),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (confirm != true) {
       return;
     }
 
@@ -64,6 +131,15 @@ class _AddProductScreenState
 
         if (!mounted) return;
 
+        ScaffoldMessenger.of(context)
+            .showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Produk berhasil ditambahkan 🌸',
+            ),
+          ),
+        );
+
         Navigator.pop(context);
       }
     }
@@ -75,8 +151,6 @@ class _AddProductScreenState
     return Scaffold(
 
       appBar: AppBar(
-        backgroundColor: Colors.blue,
-
         title: const Text(
           'Tambah Produk',
           style: TextStyle(
@@ -96,9 +170,17 @@ class _AddProductScreenState
               controller: nameController,
 
               decoration:
-                  const InputDecoration(
+                  InputDecoration(
                 labelText:
                     'Nama Bunga',
+
+                border:
+                    OutlineInputBorder(
+                  borderRadius:
+                      BorderRadius.circular(
+                    20,
+                  ),
+                ),
               ),
             ),
 
@@ -112,8 +194,16 @@ class _AddProductScreenState
                   TextInputType.number,
 
               decoration:
-                  const InputDecoration(
+                  InputDecoration(
                 labelText: 'Harga',
+
+                border:
+                    OutlineInputBorder(
+                  borderRadius:
+                      BorderRadius.circular(
+                    20,
+                  ),
+                ),
               ),
             ),
 
@@ -123,10 +213,20 @@ class _AddProductScreenState
               controller:
                   descriptionController,
 
+              maxLines: 4,
+
               decoration:
-                  const InputDecoration(
+                  InputDecoration(
                 labelText:
                     'Deskripsi',
+
+                border:
+                    OutlineInputBorder(
+                  borderRadius:
+                      BorderRadius.circular(
+                    20,
+                  ),
+                ),
               ),
             ),
 
@@ -134,15 +234,24 @@ class _AddProductScreenState
 
             SizedBox(
               width: double.infinity,
-              height: 50,
+              height: 55,
 
               child: ElevatedButton(
-                onPressed: addProduct,
+                onPressed:
+                    addProduct,
 
                 style:
                     ElevatedButton.styleFrom(
                   backgroundColor:
                       Colors.pink,
+
+                  shape:
+                      RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(
+                      20,
+                    ),
+                  ),
                 ),
 
                 child: isLoading
@@ -151,7 +260,8 @@ class _AddProductScreenState
                             Colors.white,
                       )
                     : const Text(
-                        'SIMPAN',
+                        'SIMPAN PRODUK',
+
                         style: TextStyle(
                           color:
                               Colors.white,
